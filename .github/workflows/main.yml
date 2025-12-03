@@ -13,5 +13,5 @@ jobs:
               run: echo "Publicação da Relase final"
     CD:
       needs: [CI]
-      uses: leosimao88/repo-reaproveitavel/.github/workflows/cd.yml@main
+      uses: leosimao88/repo-deploy/.github/workflows/deploy.yml@main
       secrets: inherit
