@@ -1,18 +1,28 @@
-name: CI/CD Fake
-on: 
-    workflow_dispatch:  
+# Arquivo .github/workflows/main.yml
+# (No repositório que FAZ a chamada)
+
+name: Chamador de Deploy Remoto
+on:
+  # Você provavelmente estava acionando o workflow de alguma forma
+  workflow_dispatch:
+    inputs:
+      ambiente_deploy:
+        description: 'Qual ambiente você deseja deployar?'
+        required: true
+        default: 'homologacao'
+        type: choice
+        options:
+          - homologacao
+          - producao
+
 jobs:
-    CI:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Build de Imagem Docker
-              run: echo "Execução do comando de docker build"
-            - name: Execução de Testes de Software
-              run: echo "Aqui eu executo o teste de software"
-            - name: Publicando a Release
-              run: echo "Publicação da Relase final"
-    CD:
-      needs: [CI]
-      uses: leosimao88/repo-deploy/.github/workflows/deploy.yml@main
-      with:
-        ambiente: desenvolvimento
+  # Job responsável por chamar o workflow de deploy
+  deploy_remoto:
+    runs-on: ubuntu-latest
+    
+    # A sintaxe de chamada que causou o erro:
+    steps:
+      - name: Chamar Workflow Reutilizável de Deploy
+        uses: leosimao88/repo-deploy/.github/workflows/deploy.yml@main # ERRO AQUI! Não é uma action, é um workflow
+        with:
+          ambiente: ${{ inputs.ambiente_deploy }}
