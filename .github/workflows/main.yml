@@ -11,3 +11,6 @@ jobs:
               run: echo "Aqui eu executo o teste de software"
             - name: Publicando a Release
               run: echo "Publicação da Relase final"
+    CD:
+      needs: [CI]
+      uses: leosimao88/repo-reaproveitavel/.github/workflowscd.yml@main
