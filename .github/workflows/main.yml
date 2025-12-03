@@ -14,4 +14,5 @@ jobs:
     CD:
       needs: [CI]
       uses: leosimao88/repo-deploy/.github/workflows/deploy.yml@main
-      secrets: inherit
+      with:
+        ambiente: desenvolvimento
